@@ -1,6 +1,12 @@
 ---
-- hosts: localhost
+- name: IOS Show command
+  hosts: switches_centre
+  gather_facts: false
+  connection: local
+
   tasks:
-   - name: ECHO TO TERMINAL
-     shell: "echo hello world"
-     
+    - name: SHOW COMMANDS
+      ios_command:
+        commands: 
+          - show version
+...      
