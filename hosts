@@ -1,0 +1,53 @@
+# Ansible inventory file
+CSR1kv ansible_host=192.168.56.105 ansible_user=cisco ansible_ssh_pass='cisco123!'
+Backbone ansible_host=192.168.122.10
+
+[routers]
+Centre ansible_host=10.0.0.1
+South ansible_host=10.0.1.1
+North ansible_host=10.0.2.1
+
+[switches_distribution]
+DLS1-C ansible_host=172.16.0.1
+DLS2-C ansible_host=172.16.1.1
+DLS1-S ansible_host=172.16.2.1
+DLS2-S ansible_host=172.16.3.1
+DLS1-N ansible_host=172.16.4.1
+DLS2-N ansible_host=172.16.5.1
+
+[switches_access]
+ALS1-C ansible_host=192.168.1.1
+ALS2-C ansible_host=192.168.1.2
+ALS1-S ansible_host=192.168.2.1
+ALS2-S ansible_host=192.168.2.2
+ALS1-N ansible_host=192.168.3.1
+ALS2-N ansible_host=192.168.3.2
+
+[switches:children]
+switches_distribution
+switches_access
+
+[switches_centre]
+DLS1-C ansible_host=172.16.0.1
+DLS2-C ansible_host=172.16.1.1
+ALS1-C ansible_host=192.168.1.1
+ALS2-C ansible_host=192.168.1.2
+
+[switches_south]
+DLS1-S ansible_host=172.16.2.1
+DLS2-S ansible_host=172.16.3.1
+ALS1-S ansible_host=192.168.2.1
+ALS2-S ansible_host=192.168.2.2
+
+[switches_north]
+DLS1-N ansible_host=172.16.4.1
+DLS2-N ansible_host=172.16.5.1
+ALS1-N ansible_host=192.168.3.1
+ALS2-N ansible_host=192.168.3.2
+
+[all:vars]
+ansible_user=nima
+# ansible_ssh_pass='Rustin'
+# ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_python_interpreter=/usr/bin/python3
+ansible_network_os=ios
