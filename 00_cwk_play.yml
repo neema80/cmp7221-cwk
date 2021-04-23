@@ -1,9 +1,9 @@
 ---
-- name: testing playbook
+- name: "testing playbook"
   hosts: localhost
 
   tasks:
-    - name: ECHO HELLO WORLD
+    - name: "ECHO HELLO WORLD"
       command:
         - 'echo hello world'
 
