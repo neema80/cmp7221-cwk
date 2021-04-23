@@ -1,10 +1,6 @@
 ---
-- name: "testing playbook"
-  hosts: localhost
-
+- hosts: localhost
   tasks:
-    - name: "ECHO HELLO WORLD"
-      command:
-        - 'echo hello world'
-
-...
+   - name: ECHO TO TERMINAL
+     shell: "echo hello world"
+     
