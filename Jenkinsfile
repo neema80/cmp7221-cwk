@@ -18,8 +18,9 @@ pipeline {
             steps{
                 ansiColor('xterm') {
                     sh '''
-                        git remote -v
-                        git add .
+                        git checkout main
+                        git merge dev main
+                        git push
                         git status
                     '''}
             }
