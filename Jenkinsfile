@@ -21,7 +21,7 @@ pipeline {
                     sh '''
                         git checkout main
                         git merge dev main
-                        git push
+                        git push --set-upstream origin main
                         git status
                     '''}
             }
