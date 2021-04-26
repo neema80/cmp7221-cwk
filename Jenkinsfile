@@ -12,7 +12,16 @@ pipeline {
             steps{
                 ansiColor('xterm') {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml'                }
-                    echo 'Test Passed!'
+            }
+        }
+        stage('Build') {
+            steps{
+                ansiColor('xterm') {
+                    sh '''
+                        git remote -v
+                        git add .
+                        git status
+                    '''
             }
         }
     }
