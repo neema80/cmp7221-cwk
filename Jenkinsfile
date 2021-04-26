@@ -21,6 +21,7 @@ pipeline {
                         git config user.name "Nima Bahramzadeh"
                         git config user.email "neema80@gmail.com"
                         git checkout main
+                        git pull
                         git remote -v
                         git merge dev main
                         git push --set-upstream origin main
