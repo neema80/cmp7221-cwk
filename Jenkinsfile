@@ -4,6 +4,7 @@ pipeline {
         stage('Git Checkout') {
             steps{
                 ansiColor('xterm') {
+                    git branch: 'main', changelog: false, credentialsId: 'neema80', poll: false, url: 'https://github.com/neema80/cmp7221-cwk'
                     git branch: 'dev', changelog: false, credentialsId: 'neema80', poll: false, url: 'https://github.com/neema80/cmp7221-cwk'
                 }
             }
@@ -12,7 +13,20 @@ pipeline {
             steps{
                 ansiColor('xterm') {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml'                }
-                    echo 'Test Passed!'
+            }
+        }
+        stage('Build') {
+            steps{
+                ansiColor('xterm') {
+                    sh '''
+                        git config user.name "Nima Bahramzadeh"
+                        git config user.email "neema80@gmail.com"
+                        git checkout main
+                        git remote -v
+                        git merge dev main
+                        git push --set-upstream origin main
+                        git status
+                    '''}
             }
         }
     }
