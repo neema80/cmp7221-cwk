@@ -14,15 +14,5 @@ pipeline {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml'                }
             }
         }
-        stage('Build') {
-            steps{
-                ansiColor('xterm') {
-                    sh '''
-                        git remote -v
-                        git add .
-                        git status
-                    '''
-            }
-        }
     }
 }
