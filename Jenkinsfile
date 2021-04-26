@@ -4,8 +4,7 @@ pipeline {
         stage('Git Checkout') {
             steps{
                 ansiColor('xterm') {
-                    git branch: 'main', changelog: false, credentialsId: 'neema80', poll: false, url: 'https://github.com/neema80/cmp7221-cwk'
-                    git branch: 'dev', changelog: false, credentialsId: 'neema80', poll: false, url: 'https://github.com/neema80/cmp7221-cwk'
+                    git url: "git@github.com:neema80/cmp7221-cwk.git", credentialsId: 'jenkins_ssh_key', branch: 'dev'
                 }
             }
         }
