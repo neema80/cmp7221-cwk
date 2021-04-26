@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Git Checkout') {
+        stage('Checkout from Dev Branch') {
             steps{
                 ansiColor('xterm') {
                     git url: "git@github.com:neema80/cmp7221-cwk.git", credentialsId: 'jenkins_ssh_key', branch: 'dev'
@@ -14,7 +14,7 @@ pipeline {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml'                }
             }
         }
-        stage('Build') {
+        stage('Checkout to Main branch and Merge') {
             steps{
                 ansiColor('xterm') {
                     sh '''
