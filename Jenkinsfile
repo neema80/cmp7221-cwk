@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout from Dev Branch') {
+        stage('Checkout to Dev Branch') {
             steps{
                 ansiColor('xterm') {
                     git url: "git@github.com:neema80/cmp7221-cwk.git", credentialsId: 'jenkins_ssh_key', branch: 'dev'
