@@ -1,12 +1,25 @@
 ---
-- name: IOS Show command
-  hosts: switches_centre
+- name: CONFIGURE BANNER
+  hosts: ALS1-C
   gather_facts: false
   connection: local
 
   tasks:
-    - name: SHOW COMMANDS
-      ios_command:
-        commands: 
-          - show version
+    - name: SET THE LOGIN BANNER
+      ios_banner:
+        banner: login
+        text: |
+          ############################ Login Banner ##############################
+          #  This is a private property of BCU, please disconnect if you         #
+          #  are unauthorised to access this device. you are connected to {{ inventory_hostname }} #
+          ########################################################################
+        state: present
+    - name: REMOVE MOTD BANNER
+      ios_banner:    
+        banner: motd
+        state: absent
+    - name: REMOVE MOTD BANNER
+      ios_banner:
+        banner: exec
+        state: absent
 ...      
