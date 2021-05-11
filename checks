@@ -1,0 +1,2 @@
+ansible-playbook 00_cwk_play.yml --syntax-check
+ansible-playbook 00_cwk_play.yml --check
