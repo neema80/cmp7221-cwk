@@ -1,0 +1,5 @@
+pip install ansible==2.9.2
+ansible-version
+ansible-playbook main.yml --syntax-check
+ansible-playbook -i staging-servers.cfg main.yml --check
+ansible-playbook -i staging-servers.cfg main.yml -vvvv
