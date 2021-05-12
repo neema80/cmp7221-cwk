@@ -11,7 +11,7 @@ pipeline {
         stage('Test Ansible playbook') {
             steps{
                 ansiColor('xterm') {
-                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml'                }
+                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml', extras: '--check'                }
             }
         }
         stage('Merge back to Main branch') {
