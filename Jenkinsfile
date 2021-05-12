@@ -8,10 +8,16 @@ pipeline {
                 }
             }
         }
-        stage('Test Ansible playbook') {
+        stage('Ansible-Playbook Sanity Check') {
             steps{
                 ansiColor('xterm') {
-                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml', extras: '--check'                }
+                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml', extras: '--check --syntax-check' }
+            }
+        }
+        stage('Run Ansible-Playbook Against GNS3') {
+            steps{
+                ansiColor('xterm') {
+                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml', }
             }
         }
         stage('Merge back to Main branch') {
