@@ -1,6 +1,6 @@
 ---
 - name: CONFIGURE BANNER
-  hosts: ALS1-C
+  hosts: ALS2-C
   gather_facts: false
   connection: local
 
