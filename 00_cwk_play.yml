@@ -1,6 +1,6 @@
 ---
 - name: CONFIGURE BANNER
-  hosts: ALS2-C
+  hosts: switches_centre
   gather_facts: false
   connection: local
 
