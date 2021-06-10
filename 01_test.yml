@@ -1,0 +1,18 @@
+---
+- name: Verify Banner Change
+  hosts: switches_centre
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: SHOW BANNER LOGIN
+      ios_command:
+        commands: 
+          - show banner login
+      register: output
+      
+    - name: Testing the Applied Banner Setting
+      fail:
+        msg: "Banner Setting is not Applied as Expected"
+      when: output.stdout_lines[0] is not search("BCU")
+...      
