@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout to Dev branch') {
+        stage('01. SCM dev branch checkout') {
             steps{
                 ansiColor('xterm') {
                     git url: "git@github.com:neema80/cmp7221-cwk.git", credentialsId: 'jenkins_ssh_key', branch: 'dev'
                 }
             }
         }
-        stage('Ansible-Playbook Sanity Check') {
+        stage('02. UNIT TESTING: Playbook 00 Sanity Check') {
             steps{
                 ansiColor('xterm') {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml', extras: '--syntax-check' 
@@ -16,13 +16,19 @@ pipeline {
                 }
             }
         }
-        stage('Run Ansible-Playbook Against GNS3') {
+        stage('03. GNS3 APPLICATION') {
             steps{
                 ansiColor('xterm') {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '00_cwk_play.yml' }
             }
         }
-        stage('Merge back to Main branch') {
+        stage('04. INTEGRATION TESTING: Playbook 01') {
+            steps{
+                ansiColor('xterm') {
+                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '01_test.yml' }
+            }
+        }
+        stage('05. DELIVERY: Merge Main branch') {
             steps{
                 ansiColor('xterm') {
                     sh '''
