@@ -1,6 +1,6 @@
 ---
 - name: CONFIGURE BANNER
-  hosts: switches_centre
+  hosts: switches
   gather_facts: false
   connection: local
 

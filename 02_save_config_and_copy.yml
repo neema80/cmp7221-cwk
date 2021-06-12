@@ -1,6 +1,6 @@
 ---
 - name: ROUTERS COMMON CONFIGURATIONS
-  hosts: switches_centre
+  hosts: switches
   gather_facts: false
   connection: local
 
