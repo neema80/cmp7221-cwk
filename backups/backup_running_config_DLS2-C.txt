@@ -1,0 +1,212 @@
+Building configuration...
+
+  
+Current configuration : 4331 bytes
+!
+! Last configuration change at 14:45:05 UTC Sat Jun 12 2021 by nima
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname DLS2-C
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username nima privilege 15 secret 5 $1$ImIB$V6o2mZKRYEYW/dSGsqZbg/
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name bcu.local
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description OSPF 1 - Router-ID
+ ip address 6.6.6.6 255.255.255.255
+!
+interface Port-channel2
+ description DLS2-C -> ALS2-C
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+!
+interface Port-channel3
+ description DLS2-C -> DLS1-C
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+!
+interface GigabitEthernet0/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ description DLS2-C -> Centre
+ no switchport
+ ip address 172.16.1.1 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ description PortChannel2
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+ channel-group 2 mode desirable
+!
+interface GigabitEthernet1/1
+ description PortChannel2
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+ channel-group 2 mode desirable
+!
+interface GigabitEthernet1/2
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet2/2
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet2/3
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ description PortChannel3
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+ channel-group 3 mode desirable
+!
+interface GigabitEthernet3/1
+ description PortChannel3
+ switchport trunk allowed vlan 99
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+ channel-group 3 mode desirable
+!
+interface GigabitEthernet3/2
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet3/3
+ media-type rj45
+ negotiation auto
+!
+interface Vlan99
+ description Management VLAN Interface
+ ip address 192.168.1.254 255.255.255.0
+!
+router ospf 1
+ router-id 6.6.6.6
+ network 172.16.1.0 0.0.0.255 area 0
+ network 192.168.1.0 0.0.0.255 area 1
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh pubkey-chain
+  username nima
+   key-hash ssh-rsa F6492D168712D1954E6485E3F29DB8E7 nima@Ubuntu
+!
+!
+!
+!
+!
+control-plane
+!
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+############################ Login Banner ##############################
+#  This is a private property of BCU, please disconnect if you         #
+#  are unauthorised to access this device. you are connected to DLS2-C #
+########################################################################
+^C
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end

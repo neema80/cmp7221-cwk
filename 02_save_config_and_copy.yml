@@ -1,0 +1,21 @@
+---
+- name: ROUTERS COMMON CONFIGURATIONS
+  hosts: switches_centre
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: TOP-LEVEL CONFIGURATIONS
+      ios_command:
+        commands:
+          - wr
+    - name: DISPLAYING THE RUNNING-CONFIG
+      ios_command:
+        commands:
+          - show running-config
+      register: config
+    - name: SAVE RUNNING-CONFIG TO ./backups/ FOLDER
+      copy:
+        content: "{{ config.stdout[0] }}"
+        dest: "backups/backup_running_config_{{ inventory_hostname }}.txt"
+...

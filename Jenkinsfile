@@ -28,7 +28,13 @@ pipeline {
                     ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '01_test.yml' }
             }
         }
-        stage('05. DELIVERY: Merge Main branch') {
+        stage('05. SAVE GNS CONFIG: Playbook 02') {
+            steps{
+                ansiColor('xterm') {
+                    ansiblePlaybook colorized: true, disableHostKeyChecking: true, forks: 1, installation: 'Ansible', inventory: 'hosts', playbook: '02_save_config_and_copy.yml' }
+            }
+        }
+        stage('06. DELIVERY: Merge Main branch') {
             steps{
                 ansiColor('xterm') {
                     sh '''
